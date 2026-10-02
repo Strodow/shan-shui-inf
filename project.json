@@ -1,0 +1,32 @@
+{
+	"contentrating": "Everyone",
+	"description": "Procedurally-generated vector-format infinitely-scrolling Chinese landscape.",
+	"file": "index.html",
+	"general": {
+		"properties": {
+			"autoscroll": {
+				"order": 1,
+				"text": "Auto-scroll",
+				"type": "bool",
+				"value": true
+			},
+			"scrollspeed": {
+				"max": 1000,
+				"min": 0,
+				"order": 2,
+				"text": "Scroll Speed",
+				"type": "slider",
+				"value": 200
+			},
+			"showui": {
+				"order": 3,
+				"text": "Show UI Elements",
+				"type": "bool",
+				"value": false
+			}
+		}
+	},
+	"preview": "screenshots/screen001.jpg",
+	"title": "Shan Shui Infinite",
+	"type": "web"
+}
