@@ -4064,10 +4064,15 @@
       viewupdate();
     }
   }
+  var autoScrollTimer = null;
   function autoxcroll(v) {
-    if (document.getElementById("AUTO_SCROLL").checked) {
+    if (autoScrollTimer !== null) {
+      clearTimeout(autoScrollTimer);
+      autoScrollTimer = null;
+    }
+    if (document.getElementById("AUTO_SCROLL") && document.getElementById("AUTO_SCROLL").checked) {
       xcroll(v);
-      setTimeout(function() {
+      autoScrollTimer = setTimeout(function() {
         autoxcroll(v);
       }, 2000);
     }
@@ -4130,6 +4135,35 @@
     //window.location.reload(true)
   }
   var btnHoverCol = "rgba(0,0,0,0.1)";
+
+  window.wallpaperPropertyListener = {
+    applyUserProperties: function(properties) {
+      if (properties.autoscroll) {
+        var checkbox = document.getElementById("AUTO_SCROLL");
+        if (checkbox) {
+          checkbox.checked = properties.autoscroll.value;
+          if (checkbox.checked) {
+            autoxcroll(parseFloat(document.getElementById('INC_STEP').value));
+          }
+        }
+      }
+      if (properties.scrollspeed) {
+        var incStep = document.getElementById("INC_STEP");
+        if (incStep) {
+          incStep.value = properties.scrollspeed.value;
+        }
+      }
+      if (properties.showui) {
+        var display = properties.showui.value ? "block" : "none";
+        document.getElementById("SETTING").style.display = display;
+        document.getElementById("SOURCE_BTN").style.display = display;
+        var controlsTable = document.getElementById("CONTROLS_TABLE");
+        if (controlsTable) {
+          controlsTable.style.display = display;
+        }
+      }
+    }
+  };
 </script>
 
 <body style="margin:0">
@@ -4283,7 +4317,7 @@
     </script>
   </div>
 
-  <table style="border-bottom: 1px solid rgba(0,0,0,0.1);">
+  <table id="CONTROLS_TABLE" style="border-bottom: 1px solid rgba(0,0,0,0.1);">
     <tr>
       <td>
         <div
